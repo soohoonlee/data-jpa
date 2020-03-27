@@ -4,6 +4,7 @@ import static org.assertj.core.api.Assertions.assertThat;
 
 import java.util.Arrays;
 import java.util.List;
+import java.util.Optional;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -157,5 +158,18 @@ class MemberRepositoryTest {
     assertThat(result).isNotEmpty();
     assertThat(result).hasSize(2);
     assertThat(result.get(0).getUsername()).isEqualTo("AAA");
+  }
+
+  @Test
+  void returnType() {
+    Member m1 = new Member("AAA", 10);
+    Member m2 = new Member("AAA", 20);
+    memberRepository.save(m1);
+    memberRepository.save(m2);
+
+    // List<Member> aaa = memberRepository.findListByUsername("AAA");
+    // Member findMember = memberRepository.findMemberByUsername("AAA");
+    Optional<Member> aaa = memberRepository.findOptionalByUsername("AAA");
+    System.out.println("aaa = " + aaa);
   }
 }
